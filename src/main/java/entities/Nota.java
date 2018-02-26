@@ -11,6 +11,12 @@ public class Nota {
     private int id;
     private String nota;
 
+    public Nota() {}
+
+    public Nota(String nota) {
+        this.nota = nota;
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {
