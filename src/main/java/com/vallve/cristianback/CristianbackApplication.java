@@ -64,19 +64,20 @@ public class CristianbackApplication {
 
 		List<Nota> result = notaRepository.findAll();
 
-		result.forEach(n -> response.add(n.getNota()));
+		result.forEach(n -> response.add(n.getNota() + n.getId()));
 
 		return response;
 	}
 
-    /*@RequestMapping("/save/{nota}")
-    @ResponseBody
-    String saveByUrl(@PathVariable String nota) {
-        System.out.println("entro");
-        System.out.println(nota);
-        notaRepository.save(new Nota(nota));
-        return "Saved!";
-    }*/
+	@RequestMapping("/remove/{id}")
+	@ResponseBody
+	boolean remove(@PathVariable long id) {
+		System.out.println("remove");
+
+		notaRepository.delete(id);
+
+		return true;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CristianbackApplication.class, args);

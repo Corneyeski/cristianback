@@ -1,13 +1,11 @@
 package entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Nota {
+
     private int id;
     private String nota;
 
@@ -19,6 +17,7 @@ public class Nota {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
