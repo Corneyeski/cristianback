@@ -36,7 +36,7 @@ public class CristianbackApplication {
 
 	@RequestMapping("/save")
 	@ResponseBody
-	String save(@RequestBody String nota) {
+	int save(@RequestBody String nota) {
 		System.out.println("salvar");
 		System.out.println(nota);
 
@@ -51,8 +51,27 @@ public class CristianbackApplication {
 
 		System.out.println(clean);
 
-		notaRepository.save(new Nota(clean));
-		return "Saved!";
+		return notaRepository.save(new Nota(clean)).getId();
+	}
+
+	@RequestMapping("/update/{id}")
+	@ResponseBody
+	int update(@RequestBody String nota, @PathVariable int id) {
+		System.out.println(nota);
+
+		String decode = "";
+		String clean = "";
+		try {
+			decode = URLDecoder.decode(nota, "UTF-8");
+			clean = decode.replace("nota=","");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		Nota notaOb = notaRepository.findOne(id);
+		notaOb.setNota(nota);
+
+		return notaRepository.save(notaOb).getId();
 	}
 
 	@RequestMapping("/recover")
@@ -71,7 +90,7 @@ public class CristianbackApplication {
 
 	@RequestMapping("/remove/{id}")
 	@ResponseBody
-	boolean remove(@PathVariable long id) {
+	boolean remove(@PathVariable int id) {
 		System.out.println("remove");
 
 		notaRepository.delete(id);

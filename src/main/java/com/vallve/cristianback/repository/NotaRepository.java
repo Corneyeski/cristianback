@@ -9,7 +9,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 @Repository
-public interface NotaRepository extends JpaRepository<Nota,Long> {
+public interface NotaRepository extends JpaRepository<Nota,Integer> {
 
     @Query("SELECT nota FROM Nota nota")
     List<Nota> findAll();
